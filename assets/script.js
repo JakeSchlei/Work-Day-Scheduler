@@ -1,3 +1,5 @@
+// shows date and time at the top of the page
+
 const dateTime = $("#currentDay").text(
     moment().format("dddd, MMMM Do YYYY, h:mm a")
   );
@@ -24,3 +26,36 @@ const dateTime = $("#currentDay").text(
       localStorage.clear();
     }
   }
+
+  
+  localStorage.setItem("current-date", currentDate);
+  // when the save button is clicked 
+  $(".saveBtn").on("click", function (event) {
+    let textInput = $(this).siblings("textarea").val();
+    let inputId = $(this).attr("id");
+    localStorage.setItem(inputId, textInput);
+  });
+  // storing the input in local storage
+  function storeInfo() {
+    for (let i = 0; i < localStorageArr.length; i++) {
+      if (localStorage.getItem(localStorageArr[i])) {
+        keyArr.push(localStorageArr[i]);
+        valueArr.push(localStorage.getItem(localStorageArr[i]));
+        console.log(localStorage.getItem(localStorageArr[i]));
+      }
+    }
+  }
+  
+  function showInfo() {
+    storeInfo();
+    if (valueArr) {
+      for (let i = 0; i < keyArr.length; i++) {
+        $("#" + keyArr[i])
+          .siblings("textarea")
+          .val(valueArr[i]);
+      }
+    }
+  }
+  showInfo();
+
+  // create a function to check date and label properly
